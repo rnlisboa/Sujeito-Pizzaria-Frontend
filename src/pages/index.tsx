@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import Head from "next/head";
 import Image from "next/image"
+import { GetServerSideProps } from "next";
 import logoImg from "../../public/logo.svg";
 import styles from "../styles/Home.module.scss"
 import { Input } from "@/components/ui/Input";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link"
 import {AuthContext} from "../contexts/authContext"
 import { toast } from "react-toastify";
+import { canSSRGuest } from "./utils/CanSSRGuest";
 export default function Home() {
   const { signIn } = useContext(AuthContext)
 
@@ -69,3 +71,10 @@ export default function Home() {
     </>
   )
 }
+
+
+export const getServerSideProps = canSSRGuest(async ()=> {
+  return {
+    props: {}
+  }
+})
