@@ -16,7 +16,9 @@ export function setupAPIClient(context = undefined){
     api.interceptors.response.use(response => {
         return response;
     }, (error: AxiosError)=>{
+        
         if(error.response.status == 401){
+
             // QUALQUER ERRO 401 DESLIGA O USUARIO
             if(typeof window !== undefined){
                 signOut();
