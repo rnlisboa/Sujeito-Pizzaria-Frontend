@@ -7,21 +7,23 @@ import { orderItemProps } from "../../pages/dashboard"
 interface ModalOrderProps {
     isOpen: boolean,
     onRequestClose: () => void,
-    order: orderItemProps
+    order: Array<orderItemProps>,
+    handleFinishOrder: (id: string) => void
 }
 
 export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
 
     const customStyle = {
         content: {
-            top: '50%',
-            bottom: 'auto',
-            left: '50%',
-            right: 'auto',
+            left: '20%',
             padding: '30px',
             trasform: 'translate(-50%, -50%)',
             backgroundColor: '#1d1d2e'
         }
+    }
+
+    function handleFinishOrder(order: string){
+        alert(order)
     }
 
     return (
@@ -56,6 +58,11 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
                         </span>
                     </section>
                 ))}
+
+
+                <button className={styles.buttonOrder} onClick={()=>handleFinishOrder(order[0].order_id)}>
+                    Concluir pedido
+                </button>
             </div>
         </Modal>
     )

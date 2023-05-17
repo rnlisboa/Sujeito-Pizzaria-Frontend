@@ -47,6 +47,17 @@ export default function Dashboard({ orders }: HomeProps) {
         setModalVisible(false)
     }
 
+    async function handleFishItem(id: string){
+        const apiClient = setupAPIClient()
+        await apiClient.put('/order/finish', {
+            order_id: id
+        })
+
+        const response = await apiClient.get('/orders')
+        setOrder(response.data)
+        setModalVisible(false)
+    }
+
     async function handleOpenModalView(id:string){
         const apiClient = setupAPIClient();
 
@@ -94,16 +105,17 @@ export default function Dashboard({ orders }: HomeProps) {
                         }
 
                     </article>
-
-                </main>
-
-                { modalVisible && (
+                    { modalVisible && (
                     <ModalOrder
                     isOpen={modalVisible}
                     onRequestClose={handleCloseModal}
                     order={modalItem}
+                    handleFinishOrder={handleFishItem}
                     />
                 )}
+                </main>
+
+                
             </div>
 
 
